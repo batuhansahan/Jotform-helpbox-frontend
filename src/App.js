@@ -353,7 +353,7 @@ class App extends Component {
                   <div
                     className={
                       "loadMore box sb1 " +
-                      (this.state.headings.length > 10 ? "show" : "")
+                      (this.state.headings.length > 0 ? "show" : "")
                     }
                     // onClick={this.handleLoadMore.bind(this)}
                   >
