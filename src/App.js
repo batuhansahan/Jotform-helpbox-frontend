@@ -90,7 +90,7 @@ class App extends Component {
   }
 
   handleSearchClose() {
-    this.setState({ searchOpened: true,loading:false });
+    this.setState({ searchOpened: true });
   }
 
   fetchList(text) {
@@ -376,7 +376,7 @@ class App extends Component {
             />
 
             <img
-              className={"podoImg " + (this.state.loading ? "podoJump" : "")  + (this.state.linkLoading ? "podoJump" : "")}
+              className={"podoImg " + (this.state.loading && this.state.userSearchQuery.length > 0 ? "podoJump" : "")  + (this.state.linkLoading ? "podoJump" : "")}
               src="https://cdn.jotfor.ms/assets/img/memberkit/answers-header-search-podo.png"
               width="50px"
             />
