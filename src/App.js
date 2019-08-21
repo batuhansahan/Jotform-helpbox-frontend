@@ -90,7 +90,7 @@ class App extends Component {
   }
 
   handleSearchClose() {
-    this.setState({ searchOpened: true });
+    this.setState({ searchOpened: true,loading:false });
   }
 
   fetchList(text) {
@@ -204,7 +204,7 @@ class App extends Component {
         <div
           className={
             "loadMore3 box sb1 " +
-            (this.state.userSearchQuery.length > 0 && this.state.headings.length === 0 ? "show" : "")
+            (this.state.userSearchQuery.length > 0 && this.state.headings.length === 0 && !this.state.searchOpened ? "show" : "")
           }
         >
           Oopps, no result.
@@ -376,7 +376,7 @@ class App extends Component {
             />
 
             <img
-              className="podoImg"
+              className={"podoImg " + (this.state.loading ? "podoJump" : "")  + (this.state.linkLoading ? "podoJump" : "")}
               src="https://cdn.jotfor.ms/assets/img/memberkit/answers-header-search-podo.png"
               width="50px"
             />

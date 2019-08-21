@@ -159,6 +159,17 @@ ul {
   position: absolute;
   right: 20px;
   bottom: 51px;
+  transition: 0.3s;
+}
+
+.podoImg:hover{
+  bottom: 57px;
+  transform: rotate(10deg);
+}
+
+.podoJump{
+  bottom: 57px;
+  transform: rotate(10deg);
 }
 
 .positionRelative {
