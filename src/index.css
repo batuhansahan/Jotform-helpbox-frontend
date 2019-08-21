@@ -232,7 +232,11 @@ ul {
 }
 
 .heightFix {
-  bottom: 297px;
+  bottom: 297px!important;
+}
+
+.heightFix2{
+  bottom:169px;
 }
 
 .resultBox-title-old {

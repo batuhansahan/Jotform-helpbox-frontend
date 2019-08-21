@@ -101,7 +101,7 @@ class App extends Component {
       })
         .then(res => res.json())
         .then(data2 => {
-          if (data2 === null) {
+          if (data2.headings===null) {
             this.setState({ loading: false });
           } else {
             this.setState({
@@ -198,6 +198,18 @@ class App extends Component {
         >
           Need Help ?
         </div>
+
+
+
+        <div
+          className={
+            "loadMore3 box sb1 " +
+            (this.state.userSearchQuery.length > 0 && this.state.headings.length === 0 ? "show" : "")
+          }
+        >
+          Oopps, no result.
+        </div>
+
         {this.state.userSearchQuery.length === 0 ? (
           ""
         ) : (
@@ -224,7 +236,8 @@ class App extends Component {
               "resultBox-title " +
               (!this.state.searchOpened ? "show " : " ") +
               (this.state.linkClicked ? " widthFix " : " ") +
-              (this.state.loading ? " heightFix " : " ")
+              (this.state.loading ? " heightFix " : " ") + 
+              (this.state.headings.length===0 && !this.state.searchOpened ? " heightFix2" : "")
             }
             onScroll={this.handleScroll}
           >
@@ -348,7 +361,7 @@ class App extends Component {
                   </div>
                 </div>
               ) : (
-                <div>Nothing to show</div>
+                <div style={{display:"flex",alignItems:"center",justifyContent:"center", height:"50px",fontSize:"1rem"}}>Nothing to show</div>
               )}
             </div>
           </div>
