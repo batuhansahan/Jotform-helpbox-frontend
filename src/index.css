@@ -24,10 +24,7 @@ ul:nth-child(odd) {
   background-color: #fff;
 }
 
-scrollThumb
-
-
-.scrollThumb::-webkit-scrollbar-track {
+scrollThumb .scrollThumb::-webkit-scrollbar-track {
   border-radius: 0px;
   background-color: #f3f3f3;
 }
@@ -41,7 +38,6 @@ scrollThumb
   border-radius: 20px;
   background-color: #9e9e9e;
 }
-
 
 .clickBox-results::-webkit-scrollbar-track {
   border-radius: 0px;
@@ -94,7 +90,6 @@ code {
     monospace;
 }
 
-
 ul li {
   text-align: left;
   padding: 5px 10px;
@@ -105,18 +100,19 @@ ul li {
   transition: 0.1s;
 }
 
-li:hover{
+li:hover {
   background: #ed6e33;
   color: white;
   border-radius: 4px;
 }
 
-ul{
-    list-style: none;
-    padding: 0;
-    margin: 10px;    
-    box-shadow: 0 0 0 1px rgba(49, 49, 49, 0.05), 0 2px 3px rgba(137, 137, 137, 0.17);
-    border-radius: 4px;
+ul {
+  list-style: none;
+  padding: 0;
+  margin: 10px;
+  box-shadow: 0 0 0 1px rgba(49, 49, 49, 0.05),
+    0 2px 3px rgba(137, 137, 137, 0.17);
+  border-radius: 4px;
 }
 /* 
 ul {
@@ -150,7 +146,7 @@ ul {
   border: none;
   margin: 1rem 0 0;
 
-  box-shadow: 0 0 0 1px rgba(0,0,0,.05), 0 5px 5px rgba(0,0,0,.2);
+  box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.05), 0 5px 5px rgba(0, 0, 0, 0.2);
   transition: 0.3s;
 }
 
@@ -177,19 +173,19 @@ ul {
   min-height: 180px;
 }
 
-.resultBox{
+.resultBox {
   background-color: #fbfbfb;
-    padding: 2px 2px 0px 2px;
-    border-radius: 4px;
-    position: absolute;
-    right: 20px;
-    bottom: 110px;
-    min-width: 367px;
-    min-height: 50px;
-    visibility: hidden;
-    opacity: 0;
-    transition: 0.1s ease-in-out;
-    box-shadow: 0 0 0 1px rgba(0,0,0,.05), 0 5px 5px rgba(0,0,0,.2);
+  padding: 2px 2px 0px 2px;
+  border-radius: 4px;
+  position: absolute;
+  right: 20px;
+  bottom: 110px;
+  min-width: 367px;
+  min-height: 50px;
+  visibility: hidden;
+  opacity: 0;
+  transition: 0.1s ease-in-out;
+  box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.05), 0 5px 5px rgba(0, 0, 0, 0.2);
 }
 
 .resultBox-old {
@@ -207,13 +203,12 @@ ul {
   -webkit-transition: 0.1s ease-in-out;
   -o-transition: 0.1s ease-in-out;
   transition: 0.1s ease-in-out;
-  
-  box-shadow: 0 0 0 1px rgba(0,0,0,.05), 0 5px 5px rgba(0,0,0,.2);
+
+  box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.05), 0 5px 5px rgba(0, 0, 0, 0.2);
 }
 
-
-.resultBox-title{
-  background: linear-gradient(to bottom right,#e98140,#ef662d);
+.resultBox-title {
+  background: linear-gradient(to bottom right, #e98140, #ef662d);
   padding: 10px 5px;
   border-bottom-width: 0;
   padding: 10px 5px;
@@ -232,16 +227,16 @@ ul {
   width: 362px;
 }
 
-.widthFix{
+.widthFix {
   width: 488px;
 }
 
-.heightFix{
+.heightFix {
   bottom: 297px;
 }
 
 .resultBox-title-old {
-  background: linear-gradient(to bottom right,#e98140,#ef662d);;
+  background: linear-gradient(to bottom right, #e98140, #ef662d);
   padding: 10px 5px;
   border-bottom-width: 0;
   padding: 10px 5px;
@@ -255,22 +250,21 @@ ul {
   align-content: center;
 }
 
-.resultBox-results{
+.resultBox-results {
   min-height: 30px;
-    max-height: 442px;
-    overflow-y: auto;
-    border-radius: 4px;
-    overflow-x: hidden;
-    border-top-width: 0;
-    transition: 0.1s ease-in-out;
+  max-height: 442px;
+  overflow-y: auto;
+  border-radius: 4px;
+  overflow-x: hidden;
+  border-top-width: 0;
+  transition: 0.1s ease-in-out;
 }
-
 
 .resultBox-results-old {
   min-height: 30px;
   max-height: 442px;
   overflow-y: auto;
-  overflow-x:hidden;
+  overflow-x: hidden;
   border: 1px solid #dbd2ce;
   border-top-width: 0;
   -webkit-transition: 0.1s ease-in-out;
@@ -332,34 +326,33 @@ ul {
   overflow-x: auto;
 }
 
-.loadMore{
+.loadMore {
   visibility: hidden;
   opacity: 0;
-  transition: .1s ease-in-out;
+  transition: 0.1s ease-in-out;
   position: absolute;
   right: 60px;
   bottom: -35px;
   cursor: pointer;
 }
 
-.loadMore2{
+.loadMore2 {
   visibility: unset;
   opacity: 1;
-  transition: .1s ease-in-out;
+  transition: 0.1s ease-in-out;
   position: absolute;
   right: 80px;
   bottom: 75px;
 }
 
-.loadMore3{
+.loadMore3 {
   visibility: hidden;
   opacity: 0;
-  transition: .1s ease-in-out;
+  transition: 0.1s ease-in-out;
   position: absolute;
   right: 80px;
   bottom: 75px;
 }
-
 
 .box {
   background: #ed6f33;
@@ -370,7 +363,7 @@ ul {
   font-size: 0.9rem;
 }
 
-.box:hover{
+.box:hover {
   background: #ef6422;
 }
 
