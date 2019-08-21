@@ -236,6 +236,7 @@ ul {
   right: 20px;
   bottom: 560px;
   width: 362px;
+  box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.05), 0 1px 5px rgba(0, 0, 0, 0.1);
 }
 
 .widthFix {
