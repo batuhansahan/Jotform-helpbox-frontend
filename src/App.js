@@ -134,7 +134,7 @@ class App extends Component {
       this.setState({ searchOpened: false });
       this.fetchList(this.state.userSearchQuery);
     }
-  }, 400);
+  }, 1000);
 
   handleLinkClick(link, title) {
     console.log(link);
