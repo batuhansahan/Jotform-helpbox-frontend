@@ -347,8 +347,8 @@ ul {
   opacity: 0;
   transition: 0.1s ease-in-out;
   position: absolute;
-  right: 60px;
-  bottom: -35px;
+  right: 80px;
+  bottom: 75px;
 }
 
 .loadMore2 {

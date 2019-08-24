@@ -102,7 +102,7 @@ class App extends Component {
         .then(res => res.json())
         .then(data2 => {
           if (data2.headings===null) {
-            this.setState({ loading: false });
+            this.setState({ loading: false,headings:[],links:[],end:10 });
           } else {
             this.setState({
               headings: data2.headings,
@@ -127,14 +127,10 @@ class App extends Component {
   }
 
   makeRemoteRequest = _.debounce(() => {
-    this.setState({ headings: [] });
-    if (this.state.userSearchQuery === "") {
-      this.handleSearchClose();
-    } else {
       this.setState({ searchOpened: false });
       this.fetchList(this.state.userSearchQuery);
-    }
-  }, 1000);
+    
+  }, 1200);
 
   handleLinkClick(link, title) {
     console.log(link);
@@ -154,11 +150,14 @@ class App extends Component {
   }
 
   updateQuery = text => {
-    this.setState({ loading: true, linkClicked: false });
-    let formatQuery = text;
-    this.setState({ userSearchQuery: formatQuery }, () => {
-      this.makeRemoteRequest();
-    });
+    if(text.length>0){
+      this.setState({ loading: true, linkClicked: false });
+      this.setState({ userSearchQuery: text }, () => {
+        this.makeRemoteRequest();
+      });
+    }else{
+        this.setState({ userSearchQuery: text,loading:false,linkState:"",linkClicked:false,searchOpened:true,isLinkClicked:false,isLinkLoading:false,headings:[],links:[]})
+    }
   };
 
   loadHandle() {
@@ -175,8 +174,41 @@ class App extends Component {
   };
 
   handleLoadMore() {
-    console.log("hey");
     this.setState({ end: this.state.end + 10 });
+  }
+
+  podoMessage(isLinksLoading,searchBoxOpened,query,headings,links,isLinkClicked,isLinkLoading,linkState){
+    if(searchBoxOpened){
+      if(isLinksLoading){
+        return "Please wait, I'm working on it..."
+      }else{
+        if(headings>0){
+          if(!isLinkClicked){
+            return "Here you go"
+          }else{
+            if(isLinkLoading){
+              return "Just a sec..."
+            }else{
+              return "There you go"
+            }
+          }
+        }else if(headings <= 0){
+          return "Ooopps. no result"
+        }
+      }
+    }else{
+      if(query>0 && isLinksLoading){
+        return "Please wait, I'm working on it..."
+      }else if(linkState.length>0 && isLinkClicked && isLinkLoading && query>0){
+        return "Hey comeback, just a sec..."
+      }else if(linkState.length>0 && isLinkClicked && !isLinkLoading && query>0){
+        return <div onClick={this.handleSearch} >Click to continue reading the guide</div>
+      }else if(headings>0 && !isLinkLoading && query>0){
+        return <div onClick={this.handleSearch} >Click to see search results</div>
+      }else{
+        return "Need Help?"
+      }
+    }
   }
 
   render() {
@@ -190,46 +222,11 @@ class App extends Component {
     const { headings, links } = this.state;
     return (
       <div className="App">
-        <div
-          className={
-            "loadMore2 box sb1 " +
-            (this.state.userSearchQuery.length > 0 ? "hide" : "")
-          }
-        >
-          Need Help ?
-        </div>
+        
+       <div className={"loadMore2 box sb1"}>
+         {this.podoMessage(this.state.loading,!this.state.searchOpened,this.state.userSearchQuery.trim().length,this.state.headings.length,this.state.links.length,this.state.linkClicked,this.state.linkLoading,this.state.linkState)}
+       </div>
 
-
-
-        <div
-          className={
-            "loadMore3 box sb1 " +
-            (this.state.userSearchQuery.length > 0 && this.state.headings.length === 0 && !this.state.searchOpened ? "show" : "")
-          }
-        >
-          Oopps, no result.
-        </div>
-
-        {this.state.userSearchQuery.length === 0 ? (
-          ""
-        ) : (
-          <div
-            className={
-              "loadMore3 box sb1 " + (this.state.loading ? "show" : "")
-            }
-          >
-            Please wait, I'm working on it...
-          </div>
-        )}
-        <div
-          className={
-            "loadMore3 box sb1 " +
-            (this.state.linkState.length === 0 ? " " : "show ") +
-            (this.state.searchOpened ? "hide" : "")
-          }
-        >
-          {this.state.linkLoading ? "Just a sec..." : "There you go."}
-        </div>
         <div className="launchBox">
           <div
             className={
@@ -350,15 +347,7 @@ class App extends Component {
                         </ul>
                       ))}
                   </InfiniteScroll>
-                  <div
-                    className={
-                      "loadMore box sb1 " +
-                      (this.state.headings.length > 0 ? "show" : "")
-                    }
-                    // onClick={this.handleLoadMore.bind(this)}
-                  >
-                    Here you go
-                  </div>
+
                 </div>
               ) : (
                 <div style={{display:"flex",alignItems:"center",justifyContent:"center", height:"50px",fontSize:"1rem"}}>Nothing to show</div>
