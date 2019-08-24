@@ -60,7 +60,8 @@ class App extends Component {
       linkClicked: false,
       linkLoading: false,
       linkState: "",
-      title: ""
+      title: "",
+      noResult:false
     };
 
     this.handleLinkClick = this.handleLinkClick.bind(this);
@@ -102,14 +103,18 @@ class App extends Component {
         .then(res => res.json())
         .then(data2 => {
           if (data2.headings===null) {
-            this.setState({ loading: false,headings:[],links:[],end:10 });
+            this.setState({ loading: false,headings:[],links:[],end:10,searchOpened:true,noResult:true });
           } else {
-            this.setState({
-              headings: data2.headings,
-              links: data2.links,
-              loading: false,
-              end: 10
-            });
+            if(this.state.userSearchQuery.length!==0){
+              this.setState({
+                headings: data2.headings,
+                links: data2.links,
+                searchOpened: false, 
+                loading: false,
+                end: 10,
+                noResult:false
+              });
+            }
           }
         })
         .catch(err => {});
@@ -127,9 +132,7 @@ class App extends Component {
   }
 
   makeRemoteRequest = _.debounce(() => {
-      this.setState({ searchOpened: false });
       this.fetchList(this.state.userSearchQuery);
-    
   }, 1200);
 
   handleLinkClick(link, title) {
@@ -151,12 +154,12 @@ class App extends Component {
 
   updateQuery = text => {
     if(text.length>0){
-      this.setState({ loading: true, linkClicked: false });
+      this.setState({ loading: true, linkClicked: false,noResult:false });
       this.setState({ userSearchQuery: text }, () => {
         this.makeRemoteRequest();
       });
     }else{
-        this.setState({ userSearchQuery: text,loading:false,linkState:"",linkClicked:false,searchOpened:true,isLinkClicked:false,isLinkLoading:false,headings:[],links:[]})
+        this.setState({ searchOpened:true, userSearchQuery: text,loading:false,linkState:"",linkClicked:false,isLinkClicked:false,isLinkLoading:false,headings:[],links:[],noResult:false})
     }
   };
 
@@ -177,7 +180,7 @@ class App extends Component {
     this.setState({ end: this.state.end + 10 });
   }
 
-  podoMessage(isLinksLoading,searchBoxOpened,query,headings,links,isLinkClicked,isLinkLoading,linkState){
+  podoMessage(isLinksLoading,searchBoxOpened,query,headings,links,isLinkClicked,isLinkLoading,linkState,noResult){
     if(searchBoxOpened){
       if(isLinksLoading){
         return "Please wait, I'm working on it..."
@@ -192,7 +195,7 @@ class App extends Component {
               return "There you go"
             }
           }
-        }else if(headings <= 0){
+        }else if(headings <= 0 && noResult){
           return "Ooopps. no result"
         }
       }
@@ -200,11 +203,13 @@ class App extends Component {
       if(query>0 && isLinksLoading){
         return "Please wait, I'm working on it..."
       }else if(linkState.length>0 && isLinkClicked && isLinkLoading && query>0){
-        return "Hey comeback, just a sec..."
+        return "Just a sec, It's on the way."
       }else if(linkState.length>0 && isLinkClicked && !isLinkLoading && query>0){
-        return <div onClick={this.handleSearch} >Click to continue reading the guide</div>
+        return <div style={{cursor:"pointer"}} onClick={this.handleSearch} >Click to continue reading the guide</div>
       }else if(headings>0 && !isLinkLoading && query>0){
-        return <div onClick={this.handleSearch} >Click to see search results</div>
+        return <div style={{cursor:"pointer"}} onClick={this.handleSearch} >Click to see search results</div>
+      }else if(headings <= 0 && noResult){
+        return "Ooopps, no result"
       }else{
         return "Need Help?"
       }
@@ -224,7 +229,7 @@ class App extends Component {
       <div className="App">
         
        <div className={"loadMore2 box sb1"}>
-         {this.podoMessage(this.state.loading,!this.state.searchOpened,this.state.userSearchQuery.trim().length,this.state.headings.length,this.state.links.length,this.state.linkClicked,this.state.linkLoading,this.state.linkState)}
+         {this.podoMessage(this.state.loading,!this.state.searchOpened,this.state.userSearchQuery.trim().length,this.state.headings.length,this.state.links.length,this.state.linkClicked,this.state.linkLoading,this.state.linkState,this.state.noResult)}
        </div>
 
         <div className="launchBox">
@@ -312,7 +317,7 @@ class App extends Component {
                     dangerouslySetInnerHTML={{ __html: iframeHere }}
                   />
                 </div>
-              ) : this.state.headings.length !== 0 ? (
+              ) : (
                 <div
                   className="scrollThumb"
                   style={{
@@ -349,8 +354,6 @@ class App extends Component {
                   </InfiniteScroll>
 
                 </div>
-              ) : (
-                <div style={{display:"flex",alignItems:"center",justifyContent:"center", height:"50px",fontSize:"1rem"}}>Nothing to show</div>
               )}
             </div>
           </div>
